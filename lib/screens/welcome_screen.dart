@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '/screens/registration_screen.dart';
@@ -31,9 +32,12 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
           children: [
             Row(
               children: [
-                SizedBox(
-                  height: 60.0,
-                  child: Image.asset("images/logo.png"),
+                Hero(
+                  tag: "logo",
+                  child: SizedBox(
+                    height: 60.0,
+                    child: Image.asset("images/logo.png"),
+                  ),
                 ),
                 const Text(
                   "Flash Chat",
