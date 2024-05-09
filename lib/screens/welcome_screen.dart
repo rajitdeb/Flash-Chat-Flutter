@@ -1,6 +1,17 @@
 import 'package:flutter/material.dart';
 
+import '/screens/registration_screen.dart';
+import '/screens/login_screen.dart';
+
 class WelcomeScreen extends StatefulWidget {
+  // For safe routing to destinations
+  // so that we don't accidentally point to a screen that doesn't exist
+  /// `static` keyword here denotes that we can access this class member
+  /// without needing to create an object of the class
+  /// But we can change it from anywhere
+  /// which is why we used `const` keyword alongside to keep it unchangeable
+  static const String navRoute = "/";
+
   const WelcomeScreen({super.key});
 
   @override
@@ -48,6 +59,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 child: MaterialButton(
                   onPressed: () {
                     // Go to Login Screen
+                    Navigator.pushNamed(context, LoginScreen.navRoute);
                   },
                   minWidth: 200.0,
                   height: 42.0,
@@ -66,6 +78,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 child: MaterialButton(
                   onPressed: () {
                     // Go to Registration Screen
+                    Navigator.pushNamed(context, RegistrationScreen.navRoute);
                   },
                   minWidth: 200.0,
                   height: 42.0,

@@ -1,6 +1,14 @@
 import 'package:flutter/material.dart';
 
 class RegistrationScreen extends StatefulWidget {
+  // For safe routing to destinations
+  // so that we don't accidentally point to a screen that doesn't exist
+  /// `static` keyword here denotes that we can access this class member
+  /// without needing to create an object of the class
+  /// But we can change it from anywhere
+  /// which is why we used `const` keyword alongside to keep it unchangeable
+  static const String navRoute = "/register";
+
   const RegistrationScreen({super.key});
 
   @override

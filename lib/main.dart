@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
 import 'screens/welcome_screen.dart';
+import 'screens/chat_screen.dart';
+import 'screens/login_screen.dart';
+import 'screens/registration_screen.dart';
 
 void main() => runApp(const MyApp());
 
@@ -19,7 +22,13 @@ class MyApp extends StatelessWidget {
           bodySmall: TextStyle(color: Colors.black54),
         ),
       ),
-      home: const WelcomeScreen(),
+      initialRoute: WelcomeScreen.navRoute,
+      routes: {
+        WelcomeScreen.navRoute: (context) => const WelcomeScreen(),
+        LoginScreen.navRoute: (context) => const LoginScreen(),
+        RegistrationScreen.navRoute: (context) => const RegistrationScreen(),
+        ChatScreen.navRoute: (context) => const ChatScreen(),
+      },
     );
   }
 }
