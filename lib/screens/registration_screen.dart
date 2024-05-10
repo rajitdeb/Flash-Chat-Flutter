@@ -1,5 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import '/screens/components/round_button.dart';
+import '/screens/components/round_text_field.dart';
 
 class RegistrationScreen extends StatefulWidget {
   // For safe routing to destinations
@@ -34,90 +36,22 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 child: Image.asset("images/logo.png"),
               ),
             ),
-            const SizedBox(
-              height: 48.0,
+            const SizedBox(height: 36.0),
+            RoundTextField(
+              hintText: "Enter your email",
+              onValueChanged: (value) {},
             ),
-            TextField(
-              onChanged: (value) {},
-              decoration: InputDecoration(
-                hintText: "Enter your email",
-                hintStyle: const TextStyle(
-                  color: Colors.grey,
-                  fontWeight: FontWeight.w400,
-                ),
-                contentPadding: const EdgeInsets.symmetric(
-                  vertical: 10.0,
-                  horizontal: 20.0,
-                ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(32.0),
-                ),
-                enabledBorder: const OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Colors.blueAccent,
-                    width: 1.0,
-                  ),
-                  borderRadius: BorderRadius.all(Radius.circular(32.0)),
-                ),
-                focusedBorder: const OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Colors.blueAccent,
-                    width: 2.0,
-                  ),
-                  borderRadius: BorderRadius.all(Radius.circular(32.0)),
-                ),
-              ),
+            const SizedBox(height: 8.0),
+            RoundTextField(
+              hintText: "Enter your password",
+              isPasswordField: true,
+              onValueChanged: (value) {},
             ),
-            const SizedBox(
-              height: 8.0,
-            ),
-            TextField(
-              onChanged: (value) {},
-              decoration: InputDecoration(
-                hintText: "Enter your password",
-                hintStyle: const TextStyle(
-                  color: Colors.grey,
-                  fontWeight: FontWeight.w400,
-                ),
-                contentPadding: const EdgeInsets.symmetric(
-                  vertical: 10.0,
-                  horizontal: 20.0,
-                ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(32.0),
-                ),
-                enabledBorder: const OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Colors.blueAccent,
-                    width: 1.0,
-                  ),
-                  borderRadius: BorderRadius.all(Radius.circular(32.0)),
-                ),
-                focusedBorder: const OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Colors.blueAccent,
-                    width: 2.0,
-                  ),
-                  borderRadius: BorderRadius.all(Radius.circular(32.0)),
-                ),
-              ),
-            ),
-            const SizedBox(
-              height: 24.0,
-            ),
-            Material(
-              color: Colors.blueAccent,
-              borderRadius: BorderRadius.circular(32.0),
-              elevation: 8.0,
-              child: MaterialButton(
-                onPressed: () {},
-                minWidth: 200.0,
-                height: 42.0,
-                child: const Text("Register"),
-              ),
-            ),
-            const SizedBox(
-              height: 8.0,
+            RoundButton(
+              btnText: "Register",
+              btnColor: Colors.blueAccent,
+              verticalPadding: 20.0,
+              onButtonPressed: () {},
             ),
             TextButton(
               onPressed: () {},

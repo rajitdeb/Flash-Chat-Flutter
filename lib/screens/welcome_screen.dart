@@ -1,10 +1,9 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 
 import '/screens/registration_screen.dart';
 import '/screens/login_screen.dart';
+import '/screens/components/round_button.dart';
 
 class WelcomeScreen extends StatefulWidget {
   // For safe routing to destinations
@@ -123,43 +122,21 @@ class _WelcomeScreenState extends State<WelcomeScreen>
             const SizedBox(
               height: 48.0,
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                vertical: 16.0,
-              ),
-              child: Material(
-                elevation: 5.0,
-                color: Colors.lightBlueAccent,
-                borderRadius: BorderRadius.circular(30.0),
-                child: MaterialButton(
-                  onPressed: () {
-                    // Go to Login Screen
-                    Navigator.pushNamed(context, LoginScreen.navRoute);
-                  },
-                  minWidth: 200.0,
-                  height: 42.0,
-                  child: const Text("Log In"),
-                ),
-              ),
+            RoundButton(
+              btnText: "Log In",
+              btnColor: Colors.lightBlueAccent,
+              onButtonPressed: () {
+                // Go to Login Screen
+                Navigator.pushNamed(context, LoginScreen.navRoute);
+              },
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                vertical: 16.0,
-              ),
-              child: Material(
-                elevation: 5.0,
-                color: Colors.blueAccent,
-                borderRadius: BorderRadius.circular(30.0),
-                child: MaterialButton(
-                  onPressed: () {
-                    // Go to Registration Screen
-                    Navigator.pushNamed(context, RegistrationScreen.navRoute);
-                  },
-                  minWidth: 200.0,
-                  height: 42.0,
-                  child: const Text("Register"),
-                ),
-              ),
+            RoundButton(
+              btnText: "Register",
+              btnColor: Colors.blueAccent,
+              onButtonPressed: () {
+                // Go to Registration Screen
+                Navigator.pushNamed(context, RegistrationScreen.navRoute);
+              },
             ),
           ],
         ),

@@ -20,3 +20,46 @@ const kMessageContainerDecoration = BoxDecoration(
     ),
   ),
 );
+
+const kRoundTextFieldHintTextStyle = TextStyle(
+  color: Colors.grey,
+  fontWeight: FontWeight.w400,
+);
+
+const kRoundTextFieldContentPadding = EdgeInsets.symmetric(
+  vertical: 10.0,
+  horizontal: 20.0,
+);
+
+const kRoundTextFieldEnabledBorderSide = BorderSide(
+  color: Colors.lightBlueAccent,
+  width: 1.0,
+);
+
+const kRoundTextFieldFocusedBorderSide = BorderSide(
+  color: Colors.lightBlueAccent,
+  width: 2.0,
+);
+
+const _kRoundTextFieldBorderRadius = BorderRadius.all(Radius.circular(32.0));
+
+const kRoundTextFieldDecoration = InputDecoration(
+  hintText: "",
+  hintStyle: kRoundTextFieldHintTextStyle,
+  contentPadding: kRoundTextFieldContentPadding,
+  border: OutlineInputBorder(
+    borderRadius: _kRoundTextFieldBorderRadius,
+  ),
+  enabledBorder: OutlineInputBorder(
+    borderSide: kRoundTextFieldEnabledBorderSide,
+    borderRadius: _kRoundTextFieldBorderRadius,
+  ),
+  focusedBorder: OutlineInputBorder(
+    borderSide: kRoundTextFieldFocusedBorderSide,
+    borderRadius: _kRoundTextFieldBorderRadius,
+  ),
+);
+
+const kRoundTextFieldTextStyle = TextStyle(
+  color: Colors.black,
+);

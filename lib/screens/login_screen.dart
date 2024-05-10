@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '/screens/components/round_button.dart';
+import '/screens/components/round_text_field.dart';
+
 class LoginScreen extends StatefulWidget {
   // For safe routing to destinations
   // so that we don't accidentally point to a screen that doesn't exist
@@ -33,90 +36,22 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: Image.asset("images/logo.png"),
               ),
             ),
-            const SizedBox(
-              height: 48.0,
+            const SizedBox(height: 36.0),
+            RoundTextField(
+              hintText: "Enter your email",
+              onValueChanged: (value) {},
             ),
-            TextField(
-              onChanged: (value) {},
-              decoration: InputDecoration(
-                hintText: "Enter your email",
-                hintStyle: const TextStyle(
-                  color: Colors.grey,
-                  fontWeight: FontWeight.w400,
-                ),
-                contentPadding: const EdgeInsets.symmetric(
-                  vertical: 10.0,
-                  horizontal: 20.0,
-                ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(32.0),
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderSide: const BorderSide(
-                    color: Colors.lightBlueAccent,
-                    width: 1.0,
-                  ),
-                  borderRadius: BorderRadius.circular(32.0),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: const BorderSide(
-                    color: Colors.lightBlueAccent,
-                    width: 2.0,
-                  ),
-                  borderRadius: BorderRadius.circular(32.0),
-                ),
-              ),
+            const SizedBox(height: 8.0),
+            RoundTextField(
+              hintText: "Enter your password",
+              isPasswordField: true,
+              onValueChanged: (value) {},
             ),
-            const SizedBox(
-              height: 8.0,
+            RoundButton(
+              btnText: "Log In",
+              verticalPadding: 24.0,
+              onButtonPressed: () {},
             ),
-            TextField(
-              onChanged: (value) {},
-              decoration: InputDecoration(
-                hintText: "Enter your password",
-                hintStyle: const TextStyle(
-                  color: Colors.grey,
-                  fontWeight: FontWeight.w400,
-                ),
-                contentPadding: const EdgeInsets.symmetric(
-                  vertical: 10.0,
-                  horizontal: 20.0,
-                ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(32.0),
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderSide: const BorderSide(
-                    color: Colors.lightBlueAccent,
-                    width: 1.0,
-                  ),
-                  borderRadius: BorderRadius.circular(32.0),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: const BorderSide(
-                    color: Colors.lightBlueAccent,
-                    width: 2.0,
-                  ),
-                  borderRadius: BorderRadius.circular(32.0),
-                ),
-              ),
-            ),
-            const SizedBox(
-              height: 24.0,
-            ),
-            Material(
-              color: Colors.lightBlueAccent,
-              borderRadius: BorderRadius.circular(30.0),
-              elevation: 8.0,
-              child: MaterialButton(
-                onPressed: () {},
-                minWidth: 200.0,
-                height: 42.0,
-                child: const Text(
-                  "Log In",
-                ),
-              ),
-            )
           ],
         ),
       ),

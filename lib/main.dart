@@ -21,6 +21,11 @@ class MyApp extends StatelessWidget {
           bodyMedium: TextStyle(color: Colors.black54),
           bodySmall: TextStyle(color: Colors.black54),
         ),
+        textSelectionTheme: const TextSelectionThemeData().copyWith(
+          cursorColor: Colors.lightBlueAccent,
+          selectionColor: Colors.lightBlue[50],
+          selectionHandleColor: Colors.lightBlue,
+        ),
       ),
       initialRoute: WelcomeScreen.navRoute,
       routes: {
