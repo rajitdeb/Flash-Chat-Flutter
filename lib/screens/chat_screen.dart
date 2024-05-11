@@ -1,3 +1,7 @@
+import 'dart:developer';
+
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flash_chat_flutter/screens/welcome_screen.dart';
 import 'package:flash_chat_flutter/utilities/constants.dart';
 import 'package:flutter/material.dart';
 
@@ -23,7 +27,11 @@ class _ChatScreenState extends State<ChatScreen> {
       appBar: AppBar(
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              setState(() {
+                signOutUser();
+              });
+            },
             icon: const Icon(Icons.close),
           ),
         ],
@@ -63,5 +71,13 @@ class _ChatScreenState extends State<ChatScreen> {
         ),
       ),
     );
+  }
+
+  void signOutUser() async {
+    await FirebaseAuth.instance.signOut().whenComplete(() {
+      log("Log Out Successful");
+      // Navigate to Welcome Screen
+      Navigator.popUntil(context, ModalRoute.withName(WelcomeScreen.navRoute));
+    });
   }
 }

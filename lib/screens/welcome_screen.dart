@@ -1,3 +1,8 @@
+import 'dart:developer';
+
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flash_chat_flutter/screens/chat_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 
@@ -32,6 +37,9 @@ class _WelcomeScreenState extends State<WelcomeScreen>
   @override
   void initState() {
     super.initState();
+
+    initializeFirebaseApp();
+    checkForFirebaseTokenChanges();
 
     /// vsync is used to access the ticker provider state class
     /// which in our case is _WelcomeScreenState that is inheriting SingleTickerProviderStateMixin
@@ -151,5 +159,20 @@ class _WelcomeScreenState extends State<WelcomeScreen>
     /// So, whenever we use `AnimationController` we should dispose it as well
     // controller.dispose();
     super.dispose();
+  }
+
+  void initializeFirebaseApp() async {
+    await Firebase.initializeApp();
+  }
+
+  void checkForFirebaseTokenChanges() {
+    // Navigate directly to Chat Screen if user is already signed in
+    FirebaseAuth.instance.idTokenChanges().listen((user) {
+      if (user != null) {
+        log(user.uid);
+        // Move to Chat Screen
+        Navigator.pushNamed(context, ChatScreen.navRoute);
+      }
+    });
   }
 }

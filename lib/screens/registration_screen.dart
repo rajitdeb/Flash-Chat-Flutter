@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+import '../utilities/util.dart';
 import '/screens/components/round_button.dart';
 import '/screens/components/round_text_field.dart';
 
@@ -19,6 +21,10 @@ class RegistrationScreen extends StatefulWidget {
 }
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
+  String? email;
+  String? password;
+  bool isSignUpInProgress = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,19 +45,37 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             const SizedBox(height: 36.0),
             RoundTextField(
               hintText: "Enter your email",
-              onValueChanged: (value) {},
+              onValueChanged: (String value) {
+                setState(() {
+                  email = value;
+                });
+              },
             ),
             const SizedBox(height: 8.0),
             RoundTextField(
               hintText: "Enter your password",
               isPasswordField: true,
-              onValueChanged: (value) {},
+              onValueChanged: (String value) {
+                setState(() {
+                  password = value;
+                });
+              },
             ),
             RoundButton(
+              isPressed: isSignUpInProgress,
               btnText: "Register",
               btnColor: Colors.blueAccent,
               verticalPadding: 20.0,
-              onButtonPressed: () {},
+              onButtonPressed: () {
+                // Take Email and Password and register user
+                registerUser(
+                  context,
+                  email,
+                  password,
+                  () => setState(() => isSignUpInProgress = true),
+                  () => setState(() => isSignUpInProgress = false),
+                );
+              },
             ),
             TextButton(
               onPressed: () {},
@@ -67,5 +91,52 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         ),
       ),
     );
+  }
+
+  void registerUser(
+    BuildContext context,
+    String? email,
+    String? password,
+    Function onStart,
+    Function onComplete,
+  ) async {
+    onStart();
+
+    /// Test User
+    // someone@example.com
+    // sam@123
+    if (email != null && password != null) {
+      try {
+        await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: email,
+          password: password,
+        );
+      } on FirebaseAuthException catch (e) {
+        if (e.code == 'weak-password') {
+          if (context.mounted) {
+            Util.showCustomSnackBar(
+              context,
+              'The password provided is too weak.',
+            );
+          }
+        } else if (e.code == 'email-already-in-use') {
+          if (context.mounted) {
+            Util.showCustomSnackBar(
+              context,
+              'The account already exists for that email.',
+            );
+          }
+        } else if (e.code == "invalid-email") {
+          if (context.mounted) {
+            Util.showCustomSnackBar(
+              context,
+              "Bad email format supplied",
+            );
+          }
+        }
+      }
+
+      onComplete();
+    }
   }
 }
