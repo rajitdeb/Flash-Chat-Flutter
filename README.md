@@ -5,7 +5,7 @@ A multi-user chat app built using Firebase and Flutter.
 The objective of this project is to learn how to incorporate Firebase into Flutter apps. We'll be using Firebase Cloud Firestore as well as the Firebase authentication package to equip our app with a cloud-based NoSQL database and secure authentication methods. And also understand the nity-gritty of firebase firestore and authentication.
 
 ## Project Demo 📽
-You can find the project demo [here](https://drive.google.com/file/d/1lsphS3iy2dwVSjtoq9y0fVOBt0c5BWKx/view?usp=sharing).
+You can find the project demo [here](https://drive.google.com/file/d/1lsphS3iy2dwVSjtoq9y0fVOBt0c5BWKx/view?usp=sharing). If you want to test the app in your device then you can find the latest release in the [release](https://github.com/rajitdeb/Flash-Chat-Flutter/releases/tag/release) section of the repository.
 
 ## Screenshots 📷
 | Screenshot 1 | Screenshot 2 | Screenshot 3 |
