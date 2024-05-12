@@ -2,10 +2,14 @@ import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flash_chat_flutter/screens/welcome_screen.dart';
-import 'package:flash_chat_flutter/utilities/constants.dart';
-import 'package:flash_chat_flutter/utilities/util.dart';
+
+import '/screens/components/message_stream.dart';
+import '/screens/welcome_screen.dart';
+import '/utilities/constants.dart';
+import '/utilities/util.dart';
+
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class ChatScreen extends StatefulWidget {
   // For safe routing to destinations
@@ -23,7 +27,20 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
+  // Firebase Instances
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+  final FocusNode _focusNode = FocusNode();
+
+  // Util Variables
   String messageText = "";
+  late TextEditingController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = TextEditingController();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +54,10 @@ class _ChatScreenState extends State<ChatScreen> {
                 signOutUser();
               });
             },
-            icon: const Icon(Icons.close),
+            icon: const Icon(
+              Icons.close,
+              color: Colors.white,
+            ),
           ),
         ],
         title: const Text("⚡ Flash Chat"),
@@ -48,6 +68,13 @@ class _ChatScreenState extends State<ChatScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            MessageStream(
+              messagesStream: _firestore
+                  .collection("messages")
+                  .orderBy("timestamp",
+                      descending: true) // for maintaining proper order
+                  .snapshots(),
+            ),
             Container(
               decoration: kMessageContainerDecoration,
               child: Row(
@@ -55,6 +82,8 @@ class _ChatScreenState extends State<ChatScreen> {
                 children: [
                   Expanded(
                     child: TextField(
+                      controller: _controller,
+                      focusNode: _focusNode,
                       onChanged: (String value) {
                         setState(() {
                           messageText = value;
@@ -68,6 +97,8 @@ class _ChatScreenState extends State<ChatScreen> {
                     onPressed: () {
                       if (messageText.isNotEmpty) {
                         sendMessage(messageText);
+                        // To hide soft keyboard after message sent
+                        _focusNode.unfocus();
                       } else {
                         Util.showCustomSnackBar(
                           context,
@@ -92,6 +123,7 @@ class _ChatScreenState extends State<ChatScreen> {
     );
   }
 
+  /// Logs Out the User and navigates the user to the Welcome Screen
   void signOutUser() async {
     await FirebaseAuth.instance.signOut().whenComplete(() {
       log("Log Out Successful");
@@ -101,27 +133,29 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   void sendMessage(String messageText) {
+    DateTime currentTimestamp = DateTime.now();
+    String formattedCurrentTimestamp =
+        DateFormat('yyyy-MM-dd HH:mm:ss').format(currentTimestamp);
+
     // Create a new user with a first and last name
     final user = <String, dynamic>{
       "text": messageText,
-      "sender": getUserEmail(),
+      "sender": Util.getUserEmail(),
+      "timestamp": formattedCurrentTimestamp,
     };
 
     // Add a new document with a generated ID
-    FirebaseFirestore.instance
-        .collection("messages")
-        .add(user)
-        .then((DocumentReference doc) {
-      Util.showCustomSnackBar(context, "Message Sent!");
-    });
-  }
+    _firestore.collection("messages").add(user).then(
+      (DocumentReference doc) {
+        // Inform the user that the message is sent
+        Util.showCustomSnackBar(context, "Message Sent!");
 
-  String getUserEmail() {
-    final User? user = FirebaseAuth.instance.currentUser;
-    if (user != null) {
-      return user.email!;
-    } else {
-      return "Not Available";
-    }
+        // Clear the text field
+        setState(() {
+          messageText = "";
+          _controller.clear();
+        });
+      },
+    );
   }
 }

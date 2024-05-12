@@ -24,6 +24,18 @@ const kMessageContainerDecoration = BoxDecoration(
   ),
 );
 
+const kUserMessageBubbleBorderRadius = BorderRadius.only(
+  topLeft: Radius.circular(32.0),
+  bottomLeft: Radius.circular(32.0),
+  bottomRight: Radius.circular(32.0),
+);
+
+const kOtherSenderMessageBubbleBorderRadius = BorderRadius.only(
+  topRight: Radius.circular(32.0),
+  bottomLeft: Radius.circular(32.0),
+  bottomRight: Radius.circular(32.0),
+);
+
 const kRoundTextFieldHintTextStyle = TextStyle(
   color: Colors.grey,
   fontWeight: FontWeight.w400,
