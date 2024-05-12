@@ -37,8 +37,6 @@ class _WelcomeScreenState extends State<WelcomeScreen>
   @override
   void initState() {
     super.initState();
-
-    initializeFirebaseApp();
     checkForFirebaseTokenChanges();
 
     /// vsync is used to access the ticker provider state class
@@ -159,10 +157,6 @@ class _WelcomeScreenState extends State<WelcomeScreen>
     /// So, whenever we use `AnimationController` we should dispose it as well
     // controller.dispose();
     super.dispose();
-  }
-
-  void initializeFirebaseApp() async {
-    await Firebase.initializeApp();
   }
 
   void checkForFirebaseTokenChanges() {

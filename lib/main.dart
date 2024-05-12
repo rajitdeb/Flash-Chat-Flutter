@@ -5,7 +5,11 @@ import 'screens/chat_screen.dart';
 import 'screens/login_screen.dart';
 import 'screens/registration_screen.dart';
 
-void main() => runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(const MyApp());
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
