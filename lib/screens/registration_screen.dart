@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flash_chat_flutter/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../utilities/util.dart';
@@ -80,7 +81,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               },
             ),
             TextButton(
-              onPressed: () {},
+              onPressed: () =>
+                  Navigator.popAndPushNamed(context, LoginScreen.navRoute),
               style: TextButton.styleFrom(
                 foregroundColor: Colors.grey[300],
               ),
